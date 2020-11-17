@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
@@ -6,25 +6,25 @@ namespace final
 {
     class Program
     {
-        public class ZiAuthor
+        public class Author
         {
             [Key]
-            public int Ziid { get; set; }
-            public string ZiAuNam { get; set; }
-            public string ZiAuAdd { get; set; }
+            public int id { get; set; }
+            public string AuNam { get; set; }
+            public string AuAdd { get; set; }
         }
-        public class ZiPub
+        public class Pub
         {
             [Key]
-            public int Ziid { get; set; }
-            public string ZiBookTitle { get; set; }
-            public double ZiBPrice { get; set; }
-            public ZiAuthor ZiAuthor { get; set; }
+            public int id { get; set; }
+            public string BookTitle { get; set; }
+            public double BPrice { get; set; }
+            public Author Author { get; set; }
         }
         class EFContext : DbContext
         {
-            public DbSet<ZiAuthor> ZiAuthors { get; set; }
-            public DbSet<ZiPub> ZiPubs { get; set; }
+            public DbSet<Author> Authors { get; set; }
+            public DbSet<Pub> Pubs { get; set; }
 
         }
 
@@ -41,19 +41,19 @@ namespace final
             void addUser()
             {
                 Console.WriteLine("adding data ");
-                ZiAuthor ziAuthor = new ZiAuthor { ZiAuNam = "Sachin", ZiAuAdd = "31 Progress ave." };
-                ZiAuthor ziAuthor1 = new ZiAuthor { ZiAuNam = "Saguo", ZiAuAdd = "3105 Progress ave." };
-                ZiPub ziPub = new ZiPub { ZiBPrice = 30.5, ZiBookTitle = "Smallfoot", ZiAuthor = ziAuthor };
-                ZiPub ziPub1 = new ZiPub { ZiBPrice = 130.5, ZiBookTitle = "Frozen", ZiAuthor = ziAuthor1 };
+                Author Author = new Author { AuNam = "Sachin", AuAdd = "31 Progress ave." };
+                Author Author1 = new Author { AuNam = "Saguo", AuAdd = "3105 Progress ave." };
+                Pub Pub = new Pub { BPrice = 30.5, BookTitle = "Smallfoot", Author = Author };
+                Pub Pub1 = new Pub { BPrice = 130.5, BookTitle = "Frozen", Author = Author1 };
 
                 try
                 {
                     using (var ctx = new EFContext())
                     {
-                        ctx.ZiAuthors.Add(ziAuthor);
-                        ctx.ZiAuthors.Add(ziAuthor1);
-                        ctx.ZiPubs.Add(ziPub);
-                        ctx.ZiPubs.Add(ziPub1);
+                        ctx.Authors.Add(Author);
+                        ctx.Authors.Add(Author1);
+                        ctx.Pubs.Add(Pub);
+                        ctx.Pubs.Add(Pub1);
                         ctx.SaveChanges();
                     }
                 }
